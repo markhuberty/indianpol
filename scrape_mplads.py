@@ -21,10 +21,19 @@ Hnames = br.form.find_control('Hname').items
 hname_values = [item.name for item in Hnames]
 
 
-form_dict = {}
+# form_dict = {}
 for hvalue in ['L']: # 'L' doesn't work right now
-    br['Hname'] = [hvalue]
+    form_dict = {}
     form_dict['Hname'] = hvalue
+
+    br = m.Browser()
+    br.addheaders = [('User-agent',
+                      'Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0; en-US)')
+                     ]
+    br.open(form_url)
+    br.select_form(nr=0)
+    br['Hname'] = [hvalue]
+
     br.submit()
     br.select_form(nr=0)
 
